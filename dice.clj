@@ -1,8 +1,2 @@
-(defn roll-dice [n]
-  (if (= n 0)
-    0
-    (+ 1
-       (rand-int 6)
-       (roll-dice (dec n)))))
-
-(roll-dice 3)
+;; Rolling dice.
+;; Built-in random integer function is `rand-int`.
