@@ -12,4 +12,6 @@ Here's some background reading/research to get things started.
 
 - We'll be starting with a couple of high-level languages which I've deliberately chosen to be different to each other (and probably different to other languages you've seen): [Python](http://www.python.org/) - procedural, object-oriented - and [Clojure](http://clojure.org/) - functional, a dialect of Lisp. We'll get to Javascript soon.
 
+- If you're reading the source text file of this `README`, you'll notice it's written in a *[markup language](http://en.wikipedia.org/wiki/Markup_language)* (one called [Markdown](https://daringfireball.net/projects/markdown/)). The best-known markup language is probably HTML, but they've been around for ages - the process of markup originates with printing on paper.
+
 - We'll be encountering a few development environments (IDEs) as we go along, but to start we'll be working with one that's brand new: [Light Table](http://www.lighttable.com/). It's open-source and a free download. It supports Python, Clojure, Javascript and web development.
