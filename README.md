@@ -5,7 +5,7 @@
 Here's some background reading/research to get things started.
 
 - Some historical background: the [History of Programming Languages](http://en.wikipedia.org/wiki/History_of_programming_languages).
-
+m
 - [There is No Silver Bullet](http://en.wikipedia.org/wiki/No_Silver_Bullet): some background on the history, and difficulties, of software engineering. Nevertheless, we'll be looking at many silver bullets.
 
 - Collaboration: we'll be working a lot with [GitHub](https://github.com/). It's a site for hosting collaborative open-source projects and libraries. Also, for collaborative brainstorming, look at [MindMeister](https://www.mindmeister.com/).
