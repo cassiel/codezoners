@@ -2,8 +2,8 @@
 	"name" : "js-101",
 	"version" : 1,
 	"creationdate" : -817673196,
-	"modificationdate" : -817672029,
-	"viewrect" : [ 34.0, 67.0, 589.0, 428.0 ],
+	"modificationdate" : -817585647,
+	"viewrect" : [ 51.0, 116.0, 589.0, 428.0 ],
 	"autoorganize" : 1,
 	"hideprojectwindow" : 0,
 	"showdependencies" : 1,
@@ -14,6 +14,11 @@
 				"kind" : "patcher",
 				"local" : 1,
 				"toplevel" : 1
+			}
+,
+			"matrix-32.maxpat" : 			{
+				"kind" : "patcher",
+				"local" : 1
 			}
 
 		}
