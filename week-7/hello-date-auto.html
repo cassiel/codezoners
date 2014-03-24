@@ -1,0 +1,43 @@
+<HTML>
+    <HEAD>
+        <script src="http://fb.me/react-0.10.0.js"></script>
+        <script src="http://fb.me/JSXTransformer-0.10.0.js"></script>
+    </HEAD>
+
+    <BODY>
+        <H1>Show the date and auto-refresh</H1>
+
+        <DIV>The date is: <SPAN id="date">...</SPAN></DIV>
+
+        <script type="text/jsx">
+            /** @jsx React.DOM */
+            var ClickableDate = React.createClass({
+                getInitialState: function () {
+                    return {theDate: Date(),
+                            foo: 23,
+                            bar: "Hello World"};
+                },
+
+                componentDidMount: function () {
+                    setInterval(this.clickMe, 1000);
+                },
+
+                componentWillUnmount: function () {
+                },
+
+                clickMe: function() {
+                    this.setState({theDate: Date()});
+                },
+
+                render: function() {
+                    return <span>{this.state.theDate}</span>;
+                }
+            });
+
+            React.renderComponent(
+                <ClickableDate />,
+                document.getElementById("date")
+            );
+        </script>
+    </BODY>
+</HTML>

@@ -1,0 +1,20 @@
+<HTML>
+    <HEAD>
+        <script src="http://fb.me/react-0.10.0.js"></script>
+        <script src="http://fb.me/JSXTransformer-0.10.0.js"></script>
+    </HEAD>
+
+    <BODY>
+        <H1>Hello World</H1>
+
+        <H2>The date is <SPAN id="example">If you can see this then something is broken!</SPAN>.</H2>
+
+        <script type="text/jsx">
+            /** @jsx React.DOM */
+            React.renderComponent(
+                <span>{Date()}</span>,
+                document.getElementById("example")
+            );
+        </script>
+    </BODY>
+</HTML>
