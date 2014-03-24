@@ -106,6 +106,33 @@ function click2(x) {
     }
 }
 
+// Start of solver:
+
+function isUntouchable(x, y) {
+}
+
+function moveVoidToRow(y) {
+}
+
+function moveVoidToColumn(x) {
+}
+
+function moveVoidToPosition(x, y) {
+	moveVoidToRow(y);
+	moveVoidToColumn(x);
+}
+
+function moveVoidIntoQuadNotMovingTile(topX, topY, botX, botY, leaveX, leaveY) {
+}
+
+function moveTileToPosition(tile, toX, toY) {
+	moveVoidToPosition(toX, toY);
+	
+	while (t.x != toX && t.y != toY) {
+		rotateQuad(/* args */);
+	}
+}
+
 post("15-puzzle", Date());
 post();
 this.autowatch = 1;

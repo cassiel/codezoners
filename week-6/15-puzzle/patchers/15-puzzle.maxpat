@@ -4,11 +4,11 @@
 		"appversion" : 		{
 			"major" : 6,
 			"minor" : 1,
-			"revision" : 7,
+			"revision" : 6,
 			"architecture" : "x86"
 		}
 ,
-		"rect" : [ 40.0, 59.0, 768.0, 669.0 ],
+		"rect" : [ 199.0, 171.0, 983.0, 498.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -36,7 +36,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 510.0, 405.0, 69.0, 16.0 ],
+					"patching_rect" : [ 510.0, 405.0, 69.0, 18.0 ],
 					"text" : "click2 $1"
 				}
 
@@ -50,7 +50,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 270.0, 25.0, 56.0, 16.0 ],
+					"patching_rect" : [ 270.0, 25.0, 56.0, 18.0 ],
 					"text" : "compile"
 				}
 
@@ -64,7 +64,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 345.0, 25.0, 56.0, 16.0 ],
+					"patching_rect" : [ 345.0, 25.0, 56.0, 18.0 ],
 					"text" : "shuffle"
 				}
 
@@ -78,7 +78,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 195.0, 25.0, 43.0, 16.0 ],
+					"patching_rect" : [ 195.0, 25.0, 43.0, 18.0 ],
 					"text" : "flush"
 				}
 
@@ -92,7 +92,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 16,
 					"outlettype" : [ "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" ],
-					"patching_rect" : [ 195.0, 100.0, 300.0, 18.0 ],
+					"patching_rect" : [ 195.0, 100.0, 300.0, 20.0 ],
 					"saved_object_attributes" : 					{
 						"filename" : "15-puzzle.js",
 						"parameter_enable" : 0
@@ -111,8 +111,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 420.0, 335.0, 62.0, 40.0 ],
-					"text" : "."
+					"patching_rect" : [ 420.0, 335.0, 62.0, 46.0 ],
+					"text" : "1"
 				}
 
 			}
@@ -125,8 +125,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 345.0, 335.0, 62.0, 40.0 ],
-					"text" : "12"
+					"patching_rect" : [ 345.0, 335.0, 62.0, 46.0 ],
+					"text" : "2"
 				}
 
 			}
@@ -139,7 +139,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 270.0, 335.0, 62.0, 40.0 ],
+					"patching_rect" : [ 270.0, 335.0, 62.0, 46.0 ],
 					"text" : "15"
 				}
 
@@ -153,8 +153,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 195.0, 335.0, 62.0, 40.0 ],
-					"text" : "14"
+					"patching_rect" : [ 195.0, 335.0, 62.0, 46.0 ],
+					"text" : "12"
 				}
 
 			}
@@ -167,8 +167,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 420.0, 285.0, 62.0, 40.0 ],
-					"text" : "11"
+					"patching_rect" : [ 420.0, 285.0, 62.0, 46.0 ],
+					"text" : "6"
 				}
 
 			}
@@ -181,8 +181,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 345.0, 285.0, 62.0, 40.0 ],
-					"text" : "10"
+					"patching_rect" : [ 345.0, 285.0, 62.0, 46.0 ],
+					"text" : "9"
 				}
 
 			}
@@ -195,8 +195,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 270.0, 285.0, 62.0, 40.0 ],
-					"text" : "9"
+					"patching_rect" : [ 270.0, 285.0, 62.0, 46.0 ],
+					"text" : "8"
 				}
 
 			}
@@ -209,8 +209,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 195.0, 285.0, 62.0, 40.0 ],
-					"text" : "13"
+					"patching_rect" : [ 195.0, 285.0, 62.0, 46.0 ],
+					"text" : "14"
 				}
 
 			}
@@ -223,8 +223,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 420.0, 235.0, 62.0, 40.0 ],
-					"text" : "8"
+					"patching_rect" : [ 420.0, 235.0, 62.0, 46.0 ],
+					"text" : "5"
 				}
 
 			}
@@ -237,8 +237,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 345.0, 235.0, 62.0, 40.0 ],
-					"text" : "7"
+					"patching_rect" : [ 345.0, 235.0, 62.0, 46.0 ],
+					"text" : "4"
 				}
 
 			}
@@ -251,8 +251,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 270.0, 235.0, 62.0, 40.0 ],
-					"text" : "6"
+					"patching_rect" : [ 270.0, 235.0, 62.0, 46.0 ],
+					"text" : "7"
 				}
 
 			}
@@ -265,8 +265,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 195.0, 235.0, 62.0, 40.0 ],
-					"text" : "5"
+					"patching_rect" : [ 195.0, 235.0, 62.0, 46.0 ],
+					"text" : "."
 				}
 
 			}
@@ -279,8 +279,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 420.0, 185.0, 62.0, 40.0 ],
-					"text" : "4"
+					"patching_rect" : [ 420.0, 185.0, 62.0, 46.0 ],
+					"text" : "10"
 				}
 
 			}
@@ -293,8 +293,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 345.0, 185.0, 62.0, 40.0 ],
-					"text" : "3"
+					"patching_rect" : [ 345.0, 185.0, 62.0, 46.0 ],
+					"text" : "11"
 				}
 
 			}
@@ -307,8 +307,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 270.0, 185.0, 62.0, 40.0 ],
-					"text" : "2"
+					"patching_rect" : [ 270.0, 185.0, 62.0, 46.0 ],
+					"text" : "13"
 				}
 
 			}
@@ -321,8 +321,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 195.0, 185.0, 62.0, 40.0 ],
-					"text" : "1"
+					"patching_rect" : [ 195.0, 185.0, 62.0, 46.0 ],
+					"text" : "3"
 				}
 
 			}
@@ -655,7 +655,7 @@
  ],
 		"dependency_cache" : [ 			{
 				"name" : "15-puzzle.js",
-				"bootpath" : "/Users/nick/GITHUB/cassiel/codezoners/week-6/15-puzzle/code",
+				"bootpath" : "rave.ac.uk:/dfs$/Staff/Users/NRothwell/Desktop/GitHub/codezoners/week-6/15-puzzle/code",
 				"patcherrelativepath" : "../code",
 				"type" : "TEXT",
 				"implicit" : 1
