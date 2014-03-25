@@ -1,0 +1,23 @@
+<HTML>
+    <HEAD>
+        <script src="http://fb.me/react-0.10.0.js"></script>
+        <script src="http://fb.me/JSXTransformer-0.10.0.js"></script>
+    </HEAD>
+
+    <BODY>
+        <div id="container"></div>
+
+        <div style="width: 50px; height: 50px; background-color: rgb(255, 0, 0);"></div>
+
+         <script type="text/jsx">
+            /** @jsx React.DOM */
+
+            React.renderComponent(
+                <div style={ {width: "50px",
+                              height: "50px",
+                              'background-color': "rgb(255, 255, 0)"} }></div>,
+                document.getElementById("container")
+            );
+         </script>
+    </BODY>
+</HTML>
