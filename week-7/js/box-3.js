@@ -7,11 +7,23 @@ function makeColourAttribute(i) {
 }
 
 var MyBox = React.createClass( {
+    deleteMe: function () {
+    },
+
     render: function () {
-        return <div style={ {width: "50px",
+      var rgb = makeColourAttribute("0");
+
+        if (this.props.brightness !== undefined) {
+            rgb = makeColourAttribute(this.props.brightness);
+        } else if (this.props.colour !== undefined) {
+            rgb = this.props.colour;
+        } else {
+            rgb = "rgb(255, 0, 0)";
+        }
+
+        return <div style={ {width: "100px",
                              height: "50px",
-                             'background-color':
-                                 makeColourAttribute(this.props.brightness)} }></div>;
+                           'background-color': rgb} }><button onClick={this.deleteMe}>Delete me!</button></div>;
     }
 } );
 
@@ -20,7 +32,8 @@ var MyBox = React.createClass( {
 var BoxSet = React.createClass( {
     getInitialState: function () {
       return {myBoxes: [
-                 <MyBox brightness="128" />,
+                 <MyBox />,
+                 <MyBox colour="rgb(255, 100, 0)" />,
                  <MyBox brightness="200" />,
                  MyBox({brightness: "0"}),     // An example not in JSX syntax!
                  <MyBox brightness="30" />,
@@ -50,7 +63,9 @@ var BoxSet = React.createClass( {
     }
 });
 
+var myBoxSet = <BoxSet />;
+
 React.renderComponent(
-    <BoxSet />,
+    myBoxSet,
     document.getElementById("container")
 );
