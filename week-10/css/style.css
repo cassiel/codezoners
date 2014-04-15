@@ -1,0 +1,32 @@
+.light {
+    background-color: #AAAAAA;
+    color: #000000;
+}
+
+.dark {
+    background-color: #444444;
+    color: #FFFFFF;
+}
+
+.result {
+    background-color: black;
+    color: white;
+    border-radius: 2px;
+    padding: 5px;
+}
+
+.num {
+    background-color: #AAAAAA;
+    color: black;
+    border: 2px solid black;
+    border-radius: 2px;
+    padding: 5px;
+}
+
+.op {
+    background-color: #FF8800;
+    color: black;
+    border: 2px solid black;
+    border-radius: 2px;
+    padding: 5px;
+}

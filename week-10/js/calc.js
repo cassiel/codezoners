@@ -1,7 +1,10 @@
-function Calculator() {
+function Calculator(resultLine) {
     var stack = [];
 
     return {
+        digit: function (n) { resultLine.setValue(n); },
+        enter: function () { },
+
         number: function(n) { stack.push(n); return this; },
         add: function() {
             var x = stack.pop();
@@ -13,9 +16,3 @@ function Calculator() {
         result: function() { return stack[stack.length - 1]; }
     };
 }
-
-var c = Calculator();
-c.number(13).number(100).add().result();
-c.result();
-
-c
