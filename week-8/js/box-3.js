@@ -8,6 +8,20 @@ function makeColourAttribute(i) {
 
 var MyBox = React.createClass( {
     deleteMe: function () {
+        var theSet = this.props.enclosingSet;
+        var theBoxes = theSet.state.myBoxes;
+
+        // Clearly not this simple!!!
+        alert("Looking for ", this);
+        for (var i = 0; i < theBoxes.length; i++) {
+            if (theBoxes[i] === this) {
+                alert("index is ", index);
+            }
+        }
+
+        //theBoxes.splice(index, 1);
+
+        //theSet.setState({myBoxes: theBoxes});
     },
 
     render: function () {
@@ -31,14 +45,7 @@ var MyBox = React.createClass( {
 
 var BoxSet = React.createClass( {
     getInitialState: function () {
-      return {myBoxes: [
-                 <MyBox />,
-                 <MyBox colour="rgb(255, 100, 0)" />,
-                 <MyBox brightness="200" />,
-                 MyBox({brightness: "0"}),     // An example not in JSX syntax!
-                 <MyBox brightness="30" />,
-                 <MyBox brightness="80" />]
-             };
+      return {myBoxes: []};
     },
 
     destroyBoxes: function () {
@@ -47,7 +54,9 @@ var BoxSet = React.createClass( {
 
     addBox: function () {
       var a = this.state.myBoxes;
-      a.push(<MyBox brightness="50" />);
+      a.push(<MyBox
+             brightness={Math.round(Math.random() * 255)}
+             enclosingSet={this} />);
 
       this.setState(
           {myBoxes: a}
