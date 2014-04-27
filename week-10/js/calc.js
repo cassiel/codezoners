@@ -1,18 +1,82 @@
+// Reference: http://hp15c.org/RPNHowTo.php
+
+var StateEnum = {INPUTTING: 0,         // Entering the digits of a numerical value
+                 RESULT: 1,            // We have a calculated value; new input will stack it
+                 ENTERED: 2            // We've just "entered" a value which we can calculate or overwrite
+                };
+
+var Ops = {
+    "+" : {f: function (x, y) { return x + y; }, arity: 2},
+    "-" : {f: function (x, y) { return x - y; }, arity: 2},
+    "*" : {f: function (x, y) { return x * y; }, arity: 2},
+    "/" : {f: function (x, y) { return x / y; }, arity: 2},
+    neg : {f: function (x) { return -x; }, arity: 1}
+};
+
 function Calculator(resultLine) {
-    var stack = [];
+    // The stack is in this array as [T, Z, Y, X]: fixed-size.
+    var stack = [0, 0, 0, 0];
+    // We start by inputting a value to X:
+    var state = StateEnum.INPUTTING;
+
+    var adjust = function () {
+        if (stack.length > 4) {
+            stack.shift();
+        }
+
+        while (stack.length < 4) {
+            stack.unshift(stack[0]);
+        }
+    };
 
     return {
-        digit: function (n) { resultLine.setValue(n); },
-        enter: function () { },
-
-        number: function(n) { stack.push(n); return this; },
-        add: function() {
-            var x = stack.pop();
-            var y = stack.pop();
-            stack.push(x + y);
-            return this;
+        refresh: function () {
+            //alert("REFRESH!");
+            resultLine.setValue(stack);
         },
 
-        result: function() { return stack[stack.length - 1]; }
+        digit: function (n) {
+            n = parseInt(n);
+
+            if (state == StateEnum.INPUTTING) {
+                stack.push(stack.pop() * 10 + n);
+            } else if (state == StateEnum.ENTERED) {
+                stack[stack.length - 1] = n;
+                state = StateEnum.INPUTTING;
+            } else {            // state == StateEnum.RESULT
+                stack.push(n);
+                state = StateEnum.INPUTTING;
+            }
+
+            adjust();         // Exercise: do this better.
+            this.refresh();
+        },
+
+        enter: function () {
+            stack.push(stack[stack.length - 1]);
+            state = StateEnum.ENTERED;
+            adjust();
+            this.refresh();
+        },
+
+        op: function (tag) {
+            //alert("op: " + tag);
+            var fn = Ops[tag];
+
+            if (fn.arity == 2) {
+                var y = stack.pop();
+                var x = stack.pop();
+                stack.push(fn.f(x, y));
+            } else {
+                stack.push(fn.f(stack.pop()));
+            }
+
+            adjust();
+            state = StateEnum.RESULT;
+            this.refresh();
+        }
     };
 }
+
+
+// Advanced: T is preserved on pop. Implement a stack object.

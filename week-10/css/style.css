@@ -30,3 +30,11 @@
     border-radius: 2px;
     padding: 5px;
 }
+
+.enter {
+    background-color: #555555;
+    color: black;
+    border: 2px solid black;
+    border-radius: 2px;
+    padding: 5px;
+}

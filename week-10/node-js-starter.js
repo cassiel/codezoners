@@ -35,7 +35,7 @@ function Calculator() {
         var x = this.stack.pop();
         this.stack.push(x);
         this.stack.push(x);
-    }
+    };
 
     this.result = function() {
       return this.stack[this.stack.length - 1];
@@ -44,10 +44,10 @@ function Calculator() {
     //return this;
 }
 
-var c = new Calculator()
+var c = new Calculator();
 
 // Test 1:
-var c = new Calculator()
+var c = new Calculator();
 c.number(200);
 c.number(100);
 c.subtract();
@@ -75,4 +75,3 @@ c.add();  // 200
 // How do we support method chaining?
 //c.number(100).number(200).number(3).times().add().result();
 // 700?
-
