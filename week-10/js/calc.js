@@ -57,6 +57,8 @@ function Calculator(resultLine) {
             this.refresh();
         },
 
+        undo: function () { },
+
         op: function (sym) {
             if (sym == "+") {
                 var arg2 = stack.pop();
