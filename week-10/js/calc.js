@@ -5,14 +5,6 @@ var StateEnum = {INPUTTING: 0,         // Entering the digits of a numerical val
                  ENTERED: 2            // We've just "entered" a value which we can calculate or overwrite
                 };
 
-var Ops = {
-    "+" : {f: function (x, y) { return x + y; }, arity: 2},
-    "-" : {f: function (x, y) { return x - y; }, arity: 2},
-    "*" : {f: function (x, y) { return x * y; }, arity: 2},
-    "/" : {f: function (x, y) { return x / y; }, arity: 2},
-    neg : {f: function (x) { return -x; }, arity: 1}
-};
-
 function Calculator(resultLine) {
     // The stack is in this array as [T, Z, Y, X]: fixed-size.
     var stack = [0, 0, 0, 0];
@@ -60,23 +52,14 @@ function Calculator(resultLine) {
         },
 
         op: function (tag) {
-            //alert("op: " + tag);
-            var fn = Ops[tag];
-
-            if (fn.arity == 2) {
+            if (tag == "+") {
                 var y = stack.pop();
                 var x = stack.pop();
-                stack.push(fn.f(x, y));
-            } else {
-                stack.push(fn.f(stack.pop()));
+                stack.push(x + y);
+                adjust();
+                state = StateEnum.RESULT;
+                this.refresh();
             }
-
-            adjust();
-            state = StateEnum.RESULT;
-            this.refresh();
         }
     };
 }
-
-
-// Advanced: T is preserved on pop. Implement a stack object.
