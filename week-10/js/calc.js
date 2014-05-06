@@ -1,15 +1,9 @@
 // Reference: http://hp15c.org/RPNHowTo.php
 
-var StateEnum = {
-    INPUTTING: 0,
-    RESULT: 1,
-    ENTERED: 2
-};
-
-// Digit entry:
-//   - in the middle of entering a number
-//   - having just calculated a result
-//   - having just typed ENTER
+var StateEnum = {INPUTTING: 0,         // Entering the digits of a numerical value
+                 RESULT: 1,            // We have a calculated value; new input will stack it
+                 ENTERED: 2            // We've just "entered" a value which we can calculate or overwrite
+                };
 
 var Ops = {
     "+" : function (x, y) { return x + y; }
