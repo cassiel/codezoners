@@ -8,22 +8,20 @@ var StateEnum = {INPUTTING: 0,         // Entering the digits of a numerical val
 function Calculator(resultLine) {
     // The stack is in this array as [T, Z, Y, X]: fixed-size.
     var stack = [0, 0, 0, 0];
-    // We start by inputting a value to X:
     var state = StateEnum.INPUTTING;
 
     var adjust = function () {
         if (stack.length > 4) {
-            stack.shift();
-        }
-
-        while (stack.length < 4) {
-            stack.unshift(stack[0]);
+            stack.shift();             // Discard entries above T
+        } else if (stack.length < 4) {
+            stack.unshift(stack[0]);   // Preserve T if stack shrinks
         }
     };
 
     return {
+        stack: stack,
+
         refresh: function () {
-            //alert("REFRESH!");
             resultLine.setValue(stack);
         },
 
@@ -31,31 +29,35 @@ function Calculator(resultLine) {
             n = parseInt(n);
 
             if (state == StateEnum.INPUTTING) {
+                // Continue entering this value
                 stack.push(stack.pop() * 10 + n);
-            } else if (state == StateEnum.ENTERED) {
-                stack[stack.length - 1] = n;
-                state = StateEnum.INPUTTING;
-            } else {            // state == StateEnum.RESULT
+            } else if (state == StateEnum.RESULT) {
+                // Preserve calculated value by pushing, start entering a new value
                 stack.push(n);
-                state = StateEnum.INPUTTING;
+                adjust();
+            } else {        // state == StateEnum.ENTERED
+                // Start replacing the X (which has just been duplicated to Y)
+                stack[stack.length - 1] = n;
             }
 
-            adjust();         // Exercise: do this better.
+            state = StateEnum.INPUTTING;
             this.refresh();
         },
 
         enter: function () {
             stack.push(stack[stack.length - 1]);
-            state = StateEnum.ENTERED;
             adjust();
+            state = StateEnum.ENTERED;
             this.refresh();
         },
 
-        op: function (tag) {
-            if (tag == "+") {
-                var y = stack.pop();
-                var x = stack.pop();
-                stack.push(x + y);
+        undo: function () { },
+
+        op: function (sym) {
+            if (sym == "+") {
+                var arg2 = stack.pop();
+                var arg1 = stack.pop();
+                stack.push(arg1 + arg2);
                 adjust();
                 state = StateEnum.RESULT;
                 this.refresh();
