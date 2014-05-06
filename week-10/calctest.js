@@ -12,6 +12,22 @@ function eqArray(a1, a2) {
 
 // Mocking part of the React framework to test the calculator:
 
+function testUndoAsFirstActionDoesntDoAnything() {
+    var mockStack = [];
+    var c = Calculator({setValue: function (stack) { mockStack = stack; }});
+
+    c.undo();
+
+    if (eqArray(mockStack, [])) {
+        return "testUndoAsFirstActionDoesntDoAnything OK";
+    } else {
+        return "testUndoAsFirstActionDoesntDoAnything FAIL, encountered " + mockStack;
+    }
+}
+
+testUndoAsFirstActionDoesntDoAnything()
+
+
 // Testing an isolated instance of the calculator:
 
 function testTwoDigitsGenerateDoubleDigitXValue() {
@@ -46,6 +62,23 @@ function testEnterDuplicatesX() {
 }
 
 testEnterDuplicatesX()
+
+function testSimpleUndo() {
+    var mockStack = [];
+    var c = Calculator({setValue: function (stack) { mockStack = stack; }});
+
+    c.digit("2");
+    c.digit("5");
+    c.undo();
+
+    if (eqArray(mockStack, [0, 0, 0, 2])) {
+        return "testUndoEnterIntoDigitMode OK";
+    } else {
+        return "testUndoEnterIntoDigitMode FAIL: expecting [0, 0, 0, 2] encountered " + mockStack;
+    }
+}
+
+testSimpleUndo()
 
 function testUndoEnterIntoDigitMode() {
     var mockStack = [];
