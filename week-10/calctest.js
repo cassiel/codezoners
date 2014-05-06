@@ -7,7 +7,7 @@ calc.digit("9");
 calc.enter();
 
 function eqArray(a1, a2) {
-    return (a1.length==a2.length && a1.every(function(v,i) { return v === a2[i]}));
+    return (a1.length==a2.length && a1.every(function(v,i) { return v === a2[i]; }));
 }
 
 // Mocking part of the React framework to test the calculator:
