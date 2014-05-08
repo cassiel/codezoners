@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "hello.js",
+  "sourceRoot": "",
+  "sources": [
+    "hello.md"
+  ],
+  "names": [],
+  "mappings": ";AAYQ;AAAA,EAAA,OAAO,CAAC,GAAR,CAAa,cAAA,GAAa,CAAA,IAAA,CAAA,CAAA,CAA1B,CAAA,CAAA;AAAA"
+}
