@@ -10,8 +10,12 @@ This markdown file can be compiled as CoffeeScript into Javascript with the comm
 
 Here's the CoffeeScript:
 
-        console.log "The date is #{Date()}"
+        console.log "Hello, the date is #{Date()}"
         
 Compile it to `hello.js`, then run it using Node JS:
 
         # node hello.js
+
+Or compile and run it directly from CoffeeScript:
+
+        # coffee -l hello.md

@@ -2,9 +2,9 @@
 
 # WEEK 14
 
-We're at the stage where should be moving away from working in just one language (Javascript) and getting comfortable with switching between languages, sometimes within the same project. We're doing this to some extent: hosting Javascript inside HTML web pages and adding CSS for styling. However, HTML and CSS aren't really programming languages, so we want to look at other languages which have the expressive power of Javascript - this will let us learn what language features are specific to a particular language, and which are universal.
+We're at the stage where should be moving away from working in just one language (Javascript) and getting comfortable with switching between languages, sometimes within the same project. We're already doing this to some extent: hosting Javascript inside HTML web pages and adding CSS for styling. However, HTML and CSS aren't really programming languages, so we want to look at other languages which have the expressive power of Javascript - this will help us learn how to recognise which features are specific to a particular language, and which are universal.
 
-The next major jump I want to make is to Clojure: it's being used both as a front-end language (to build browser-based applications) and for the back-end (web services, database access, "big data"), so we can use it to explore a few other topics which I want to cover over the coming weeks. However, Javascript to Clojure is a big jump, partly because Javascript is encumbered with many instances of bad design (not least the syntax). So, we're going to briefly look at CoffeeScript as an intermediate point. (If we ever need to write more Javascript, we might well use CoffeeScript instead.) We'll see things in CoffeeScript that we'll encounter in more depth in Clojure.
+The next major jump I want to make is to Clojure: it's being used both as a front-end language (to build browser-based applications) and for the back-end (web services, database access, "big data"), so we can use it to explore a few other topics which I want to cover over the coming weeks. However, Javascript to Clojure is a big jump, partly because Javascript is encumbered with many instances of bad design (not least the syntax). So, we're going to look at CoffeeScript as an intermediate point. (If we ever need to write more Javascript, we might well use CoffeeScript instead.) We'll see things in CoffeeScript that we'll encounter in more depth in Clojure.
 
 ## CoffeeScript Reference
 
@@ -12,7 +12,7 @@ CoffeeScript is described [here](http://jashkenas.github.io/coffee-script/). It'
 
 ## Trying It Out
 
-Click the "Try CoffeeScript" link to get an interactive CoffeeScript compiler. This page shows the generated Javascript, and also (when you clink "Run") executes it. (If you want to see some output, open this page in Chrome, use `console.log`, and view the JavaScript console.)
+Click the "Try CoffeeScript" link to get an interactive CoffeeScript compiler. This page shows the generated Javascript, and also (when you clink "Run") executes it. (If you want to see some output, open this page in Chrome, use the `console.log` function for printing, and view the JavaScript console.)
 
 ## Getting Started
 
@@ -39,17 +39,19 @@ Try these small pieces of CoffeeScript, one at a time, and see what they generat
         y:
             "BLUE"
 
-(That last fragment is four lines long. All the others are single lines.)
+(That last fragment is four lines long. All the others are single lines.) Can you also wrap a `console.log` call around each one to see what it evaluates to?
 
 ## Workflow
 
-There is currently no compilation mode for CoffeeScript inside Light Table, although it will do syntax highlighting of CoffeeScript source files (with extension `.coffee`). CoffeeScript files have to be manually compiled into Javascript.
+There is currently no compilation mode for CoffeeScript inside Light Table, although it will do syntax highlighting of CoffeeScript source files (with extension `.coffee`). CoffeeScript files have to be manually compiled into Javascript, using a CoffeeScript "compiler".
 
-This is the procedure for OS X (if I get a chance, I'll see if I can work out the procedure for Windows 7):
+This is the installation procedure for OS X (at least, it's the scheme I used):
 
 - Install MacPorts: see http://www.macports.org
 - Install the NodeJS package manager: in a Terminal, type `sudo port install npm`
 - Install CoffeeScript using `npm`: `sudo npm install -g coffee-script`
+
+For Windows, download a NodeJS installer from [here](http://nodejs.org): that will provide the `npm` command.
 
 Then you should be able to do things like this:
 
@@ -59,15 +61,15 @@ Then you should be able to do things like this:
 
 ## Literate Programming
 
-The CoffeeScript compiler supports "literate programming", where the source code is embedded inside a document describing how it works. The compiler picks out the actual source code from the surrounding text. More information [here](http://jashkenas.github.io/coffee-script/#literate). In this project I have a file `hello.md` which is "literate" - run it with `coffee -l hello.md`.
+The CoffeeScript compiler supports "literate programming", where the source code is embedded inside a document describing how it works. The compiler picks out the actual source code from the surrounding text. There's more information [here](http://jashkenas.github.io/coffee-script/#literate). In this project I have a file `hello.md` which is "literate" - run it with `coffee -l hello.md`.
 
 ## Practice
 
-Here are some exercises based on the calculator we've been working on for the last few weeks. Before tackling these, make sure you're comfortable with the basics of CoffeeScript (converting and evaluating in the web browser, as above) and have the NodeJS-based tools installed. The exercises are basically to convert the calculator code into CoffeeScript. Since CoffeeScript compiles into Javascript, you can do the conversion bit by bit.
+Here are some exercises based on the calculator we've been working on for the last few weeks. Before tackling these, make sure you're comfortable with the basics of CoffeeScript (converting and evaluating in the web browser, and using the "coffee" compiler in the command line, as above). The exercises are basically: convert the calculator code into CoffeeScript. Since CoffeeScript compiles into Javascript, you can do the conversion bit by bit.
 
-- Start with `calctest.js` (the unit tests). These are an excellent candidate for literate programming, since the tests also act as a specification of the desired behaviour, so it's useful to add descriptions of what the tests are attempting to exercise. Can you create a `calctest.md` Markdown document which contains the tests? (Initially, you'll need to compile this to Javascript and paste it into Light Table to actually run the tests.)
+- Start with `calctest.js` (the unit tests). These are an excellent candidate for literate programming, since the tests also act as a specification of the desired behaviour, so it's useful to add descriptions of what the tests are attempting to exercise. Can you create a `calctest.md` Markdown document which contains the tests, and also reads as a descriptive document? (Initially, you'll need to compile this to Javascript and paste it into Light Table to actually run the tests - the actual calculator is being built by the web page that Light Table renders. If that gets too tedious, by all means see if you can build the calculator as well, perhaps using [RequireJS](http://requirejs.org).)
 
-- Look at the the jQuery linkage (`actions.js`) which captures the button clicking in the page. This is only three lines long, but is perhaps a little tricky, since the function nesting is not trivial. Can you write an `actions.coffee` which compiles into an equivalent `actions.js`? (You can test this out in the browser-based CoffeeScript compiler.)
+- Look at the the jQuery linkage (`actions.js`) which captures the button clicking in the page. This is only three lines long, but is perhaps a little tricky, since the function nesting is not trivial. Can you write an `actions.coffee` which compiles into an equivalent `actions.js`? (You can test this conversion out in the browser-based CoffeeScript compiler.)
 
 - The biggest job is the actual calculator (`calc.js`) but it should convert pretty cleanly, since it's pure Javascript.
 
