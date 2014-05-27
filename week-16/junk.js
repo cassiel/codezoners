@@ -1,3 +1,4 @@
+
 var history = [];
 
 var stack = [1, 2, 3, 4];
