@@ -23,4 +23,7 @@ describe "testing defined", () ->
 
 describe "test my reverser", () ->
         it "reverses a range", ->
-                expect(m.fns.reverse [1..10]).toBe [10..1]
+                expect(m.fns.reverse [1..10]).toEqual [10..1]
+
+        it "reverses empty list", () ->
+                expect(m.fns.reverse []).toEqual []
