@@ -10,16 +10,26 @@ myMaze =
                 right: "TREASURE"
 
 myEmptyMaze =
-        ahead: null
+        ahead:
+                null
 
 myDualMaze =
         left: "TREASURE 1"
         right: "TREASURE 2"
+
+myAwkwardMaze =
+        left:
+                left: null
+                right: null
+        right:
+                "TREASURE"
 
 describe "Solve a simple maze", () ->
         it "Solving Empty", () ->
                 expect(m.fns.solve myEmptyMaze).toEqual null
         it "Solving", () ->
                 expect(m.fns.solve myMaze).toEqual "TREASURE"
+        it "Solving Awkward", () ->
+                expect(m.fns.solve myAwkwardMaze).toEqual "TREASURE"
         it "Solving Dual", () ->
                 expect(m.fns.solve myDualMaze).toEqual "TREASURE 1"
