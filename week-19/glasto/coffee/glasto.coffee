@@ -2,17 +2,18 @@
 
 # This will log the entire dataset to the console:
 
-#d3.csv "data/Glastonbury 2014 - official timings - Line-up.csv"
-#        .row (d) -> {name: d["Artist name"], stage: d["Stage"]}
-#        .get (error, rows) -> console.log rows
+sql = window.SQL
 
-# Let's get more selective, and start collating according to some of the columns.
+db = new sql.Database()
 
-m = mori
-
-# We can't reliably do `console.log` on Mori data structures; we see the underlying representation instead.
+db.run "CREATE TABLE Glasto(Name STRING, Stage STRING)"
 
 d3.csv "data/Glastonbury 2014 - official timings - Line-up.csv"
         .row (d) -> {name: d["Artist name"], stage: d["Stage"]}
         .get (error, rows) ->
-                console.log (m.first (m.js_to_clj rows))
+                console.log rows
+                stmt = db.prepare "INSERT INTO Glasto (Name, Stage) VALUES ($name, $stage)"
+                rows.forEach (r) ->
+                        stmt.bind '$name': r.name, '$stage': r.stage
+                        stmt.run()
+                console.log (db.exec "SELECT Count(*) FROM Glasto")
