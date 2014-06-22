@@ -22,12 +22,16 @@ Why SQL? So that we can do some interesting lookups (queries) into the data with
 
 - How often are TUMBELLINA on?
 
-- Where and when is a CATBALLOU playing?
+- Where and when is CATBALLOU playing?
 
 - What stages are in the group SOUTH EAST CORNER?
 
 - When and where is the first act tomorrow?
 
+- What's the longest act in the whole festival?
+
 - Have I missed THE WOODCRAFT FOLK?
 
-There's an SQL introduction [here](http://www.1keydata.com/sql/sql.html). As we progress, we'll be doing some [normalization](http://databases.about.com/od/specificproducts/a/normalization.htm).
+There's an SQL introduction [here](http://www.1keydata.com/sql/sql.html). A more formal reference for `sqlite` is [here](http://www.sqlite.org/lang.html).
+
+As we progress, we'll be doing some [normalization](http://databases.about.com/od/specificproducts/a/normalization.htm).
