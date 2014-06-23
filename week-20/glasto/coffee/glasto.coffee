@@ -1,19 +1,52 @@
-# Read CSV file, generate vector graphics.
-
-# This will log the entire dataset to the console:
-
 sql = window.SQL
 
 db = new sql.Database()
 
-db.run "CREATE TABLE Glasto(Name STRING, Stage STRING)"
+db.run """
+        CREATE TABLE StageGroup(ID Integer PRIMARY KEY,
+                                Name STRING UNIQUE)
+"""
 
-d3.csv "data/Glastonbury 2014 - official timings - Line-up.csv"
-        .row (d) -> {name: d["Artist name"], stage: d["Stage"]}
-        .get (error, rows) ->
-                console.log rows
-                stmt = db.prepare "INSERT INTO Glasto (Name, Stage) VALUES ($name, $stage)"
-                rows.forEach (r) ->
-                        stmt.bind '$name': r.name, '$stage': r.stage
-                        stmt.run()
-                console.log (db.exec "SELECT Count(*) FROM Glasto")
+db.run """
+        CREATE TABLE Stage(ID Integer PRIMARY KEY,
+                           Name STRING UNIQUE,
+                           StageGroup_ID Integer REFERENCES StageGroup(ID))
+"""
+
+populateStageGroups = (db, rows) ->
+        stmt = db.prepare """
+                INSERT OR IGNORE INTO StageGroup (Name) VALUES ($name)
+        """
+        rows.forEach (r) ->
+                stmt.bind '$name': r.group
+                stmt.run()
+
+populateStages = (db, rows) ->
+        stmt = db.prepare """
+                INSERT OR IGNORE INTO Stage (Name, StageGroup_ID)
+                SELECT $stage AS Name, ID AS StageGroup_ID FROM StageGroup WHERE Name = $group
+        """
+        rows.forEach (r) ->
+                stmt.bind '$stage': r.stage, '$group': r.group
+                stmt.run()
+
+populate = (db, rows) ->
+        populateStageGroups db, rows
+        populateStages db, rows
+
+window.onload = ->
+        d3.csv "data/Glastonbury 2014 - official timings - Line-up.csv"
+                .row (d) ->
+                        name: d["Artist name"]
+                        stage: d["Stage"]
+                        group: d["Stage group"]
+                .get (error, rows) ->
+                        populate db, rows
+                        result = db.exec "SELECT * FROM Stage"
+
+                        tableData = []
+                        tableData.push result[0].columns
+                        result[0].values.forEach (r) -> tableData.push r
+
+                        tr = d3.select("#main").append("table").selectAll("tr").data(tableData).enter().append("tr")
+                        td = tr.selectAll("td").data((d) -> d).enter().append("td").text((d) -> d)
