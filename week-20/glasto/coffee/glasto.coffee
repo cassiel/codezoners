@@ -53,7 +53,7 @@ window.onload = ->
                         group: d["Stage group"]
                 .get (error, rows) ->
                         populate db, rows
-                        result = db.exec "SELECT * FROM Stage"
+                        result = db.exec "SELECT * FROM StageGroup"
 
                         tableData = []
                         tableData.push result[0].columns
