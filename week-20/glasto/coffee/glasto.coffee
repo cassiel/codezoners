@@ -13,6 +13,17 @@ db.run """
                            StageGroup_ID Integer REFERENCES StageGroup(ID))
 """
 
+db.run """
+        CREATE TABLE Artist(ID Integer PRIMARY KEY,
+                            Name STRING UNIQUE)
+"""
+
+db.run """
+        CREATE TABLE Artist_Stage_Linkage(Artist_ID Integer REFERENCES Artist(ID),
+                                          Stage_ID Integer REFERENCES Stage(ID),
+                                          CONSTRAINT UNIQUE (Artist_ID, Stage_ID))
+"""
+
 populateStageGroups = (db, rows) ->
         stmt = db.prepare """
                 INSERT OR IGNORE INTO StageGroup (Name) VALUES ($name)
