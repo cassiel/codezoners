@@ -21,7 +21,7 @@ db.run """
 db.run """
         CREATE TABLE Artist_Stage_Linkage(Artist_ID Integer REFERENCES Artist(ID),
                                           Stage_ID Integer REFERENCES Stage(ID),
-                                          CONSTRAINT UNIQUE (Artist_ID, Stage_ID))
+                                          CONSTRAINT C UNIQUE (Artist_ID, Stage_ID))
 """
 
 populateStageGroups = (db, rows) ->
