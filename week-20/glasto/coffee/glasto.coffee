@@ -32,6 +32,14 @@ populateStageGroups = (db, rows) ->
                 stmt.bind '$name': r.group
                 stmt.run()
 
+populateArtists = (db, rows) ->
+        stmt = db.prepare """
+                INSERT OR IGNORE INTO Artist (Name) VALUES ($name)
+        """
+        rows.forEach (r) ->
+                stmt.bind '$name': r.name
+                stmt.run()
+
 populateStages = (db, rows) ->
         stmt = db.prepare """
                 INSERT OR IGNORE INTO Stage (Name, StageGroup_ID)
@@ -44,6 +52,7 @@ populateStages = (db, rows) ->
 populate = (db, rows) ->
         populateStageGroups db, rows
         populateStages db, rows
+        populateArtists db, rows
 
 window.onload = ->
         d3.csv "data/Glastonbury 2014 - official timings - Line-up.csv"
@@ -53,7 +62,7 @@ window.onload = ->
                         group: d["Stage group"]
                 .get (error, rows) ->
                         populate db, rows
-                        result = db.exec "SELECT * FROM StageGroup"
+                        result = db.exec "SELECT * FROM Artist"
 
                         tableData = []
                         tableData.push result[0].columns
