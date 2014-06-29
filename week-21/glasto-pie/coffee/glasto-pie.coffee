@@ -8,7 +8,7 @@ window.onload = ->
 
     arc = d3.svg.arc()
         .outerRadius(radius - 10)
-        .innerRadius(radius - 90)
+        .innerRadius(radius - 70)
 
     pie = d3.layout.pie()
         .sort null
