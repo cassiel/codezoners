@@ -39,4 +39,3 @@ window.onload = ->
                 .attr "dy", ".35em"
                 .style "text-anchor", "middle"
                 .text (d) -> d.data.age
-
