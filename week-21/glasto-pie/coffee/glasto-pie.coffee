@@ -39,3 +39,6 @@ window.onload = ->
                 .attr "dy", ".35em"
                 .style "text-anchor", "middle"
                 .text (d) -> d.data.age
+
+        data.forEach (d) -> console.log d
+        (pie data).forEach (d) -> console.log d
