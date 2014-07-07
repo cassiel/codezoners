@@ -20,8 +20,11 @@ populateArtists = (db, rows) ->
                 INSERT OR IGNORE INTO Artist (Name) VALUES ($artist)
         """
         stmtS = db.prepare """
-                INSERT OR IGNORE INTO Artists_Stages (Artist_ID, Stage_ID)
-                SELECT Artist.ID AS Artist_ID, Stage.ID AS Stage_ID
+                INSERT OR IGNORE INTO Appearance (Artist_ID, Stage_ID, StartTime, EndTime)
+                SELECT Artist.ID AS Artist_ID,
+                       Stage.ID AS Stage_ID,
+                       DateTime($startTime),
+                       DateTime($endTime)
                   FROM Artist, Stage
                  WHERE Artist.Name = $artist
                    AND Stage.Name = $stage
@@ -30,7 +33,11 @@ populateArtists = (db, rows) ->
                 #console.log "Inserting artist #{r.artist}"
                 stmtA.bind '$artist': r.artist
                 stmtA.run()
-                stmtS.bind '$artist': r.artist, '$stage': r.stage
+                stmtS.bind
+                        '$artist': r.artist
+                        '$stage': r.stage
+                        '$startTime': r.startTimeStr
+                        '$endTime': r.endTimeStr
                 stmtS.run()
 
 populate = (db, rows) ->
@@ -61,9 +68,10 @@ db.run """
                             Name STRING UNIQUE)
 """
 db.run """
-        CREATE TABLE Artists_Stages(Artist_ID Integer REFERENCES Artist(ID),
-                                    Stage_ID Integer REFERENCES Stage(ID),
-                                    CONSTRAINT X UNIQUE (Artist_ID, Stage_ID))
+        CREATE TABLE Appearance(Artist_ID Integer REFERENCES Artist(ID),
+                                Stage_ID Integer REFERENCES Stage(ID),
+                                StartTime DateTime NOT NULL,
+                                EndTime DateTime NOT NULL)
 """
 
 QUERYx = """
@@ -78,12 +86,18 @@ QUERY = """
         SELECT a.Name AS Name,
                s.Name AS Stage,
                g.Name AS StageGroup
-          FROM Artist a, Stage s, StageGroup g, Artists_Stages ast
+          FROM Artist a, Stage s, StageGroup g, Appearance ast
          WHERE g.Name LIKE '%CIRCUS%'
            AND a.ID = ast.Artist_ID
            AND s.ID = ast.Stage_ID
            AND s.StageGroup_ID = g.ID
 """
+dayToDateMap =
+        "WEDNESDAY" : "2014-06-25"
+        "THURSDAY"  : "2014-06-26"
+        "FRIDAY"    : "2014-06-27"
+        "SATURDAY"  : "2014-06-28"
+        "SUNDAY"    : "2014-06-29"
 
 window.onload = ->
         width = 960
@@ -116,6 +130,8 @@ window.onload = ->
                         artist: d["Artist name"]
                         group: d["Stage group"]
                         stage: d["Stage"]
+                        startTimeStr: '2014-06-25 03:00:00'
+                        endTimeStr: '2014-06-25 06:00:00'
 
                 .get (error, rows) ->
                         populate db, rows
