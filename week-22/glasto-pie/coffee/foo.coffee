@@ -1,0 +1,2 @@
+define () ->
+        FRED: 19

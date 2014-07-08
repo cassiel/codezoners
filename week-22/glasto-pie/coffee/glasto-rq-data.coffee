@@ -1,5 +1,3 @@
-#console.log FRED
-
 populateStageGroups = (db, rows) ->
         stmt = db.prepare "INSERT OR IGNORE INTO StageGroup (Name) VALUES ($group)"
         rows.forEach (r) ->
@@ -92,30 +90,14 @@ dayToDateMap =
         "SATURDAY"  : "2014-06-28"
         "SUNDAY"    : "2014-06-29"
 
-window.onload = ->
+define () ->
+        # This is a bit of design smell, uncovered by the Require restructuring: geometry
+        # declarations in the data generation!
         width = 960
         height = 500
         radius = Math.min(width, height) / 2
 
-        color = d3.scale.ordinal()
-                .range ["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]
-
-        # The innerRadius and outerRadius values are now set individually for each arc.
-        arc = d3.svg.arc()
-        
-        svg = d3.select "body"
-                .append "svg"
-                .attr "width", width
-                .attr "height", height
-                .append "g"
-                .attr "transform", "translate(#{width / 2},#{height / 2})"
-
-        textRotate = (startAngle, endAngle) ->
-                averageAngle = ( (startAngle + endAngle) / 2.0 ) % (2.0 * Math.PI)
-                if averageAngle > Math.PI
-                        averageAngle * 180.0 / Math.PI + 90.0
-                else
-                        averageAngle * 180.0 / Math.PI - 90.0
+        results = []
 
         d3.csv "data/Glastonbury 2014 - official timings - Line-up.csv"
                 .row (d) ->
@@ -128,7 +110,6 @@ window.onload = ->
 
                 .get (error, rows) ->
                         populate db, rows
-                        results = []
 
                         stmt = db.prepare QUERY
                         while stmt.step()
@@ -142,28 +123,4 @@ window.onload = ->
                                 d.outerRadius = radius - 10 - Math.random() * 30
                                 d.innerRadius = d.outerRadius - 60
 
-                        g = svg.selectAll ".arc"
-                                .data results
-                                .enter()
-                                .append "g"
-                                .attr "class", "arc"
-
-                        g.append "path"
-                                .attr "d", arc
-                                # We use the actual database values for 'Name' to drive colours and text.
-                                .style "fill", (d) -> color d.Name
-
-                        g.append "text"
-                                .attr "transform", (d) -> """
-                                        translate(#{arc.centroid d})
-                                        rotate(#{textRotate d.startAngle, d.endAngle})
-                                """
-                                .attr "dy", ".35em"
-                                .style "text-anchor", "middle"
-                                .text (d) -> d.Name
-
-                        results.forEach (d) ->
-                                console.log d
-
-define ["./foo"], (foo) ->
-        console.log "Fred is #{foo.FRED}"
+        results: results
