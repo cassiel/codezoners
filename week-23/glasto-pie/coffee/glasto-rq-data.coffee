@@ -97,30 +97,31 @@ define () ->
         height = 500
         radius = Math.min(width, height) / 2
 
-        results = []
+        withResults: (f) ->
+                d3.csv "data/Glastonbury 2014 - official timings - Line-up.csv"
+                        .row (d) ->
+                                # Make the field names more sanitary:
+                                artist: d["Artist name"]
+                                group: d["Stage group"]
+                                stage: d["Stage"]
+                                startTimeStr: '2014-06-25 03:00:00'
+                                endTimeStr: '2014-06-25 06:00:00'
 
-        d3.csv "data/Glastonbury 2014 - official timings - Line-up.csv"
-                .row (d) ->
-                        # Make the field names more sanitary:
-                        artist: d["Artist name"]
-                        group: d["Stage group"]
-                        stage: d["Stage"]
-                        startTimeStr: '2014-06-25 03:00:00'
-                        endTimeStr: '2014-06-25 06:00:00'
+                        .get (error, rows) ->
+                                results = []
+                
+                                populate db, rows
 
-                .get (error, rows) ->
-                        populate db, rows
+                                stmt = db.prepare QUERY
+                                while stmt.step()
+                                        results.push(stmt.getAsObject())
 
-                        stmt = db.prepare QUERY
-                        while stmt.step()
-                                results.push(stmt.getAsObject())
+                                results.forEach (d) ->
+                                        # We're still generating random values for angles and radius distances.
+                                        # (But doing one per data query row.)
+                                        d.startAngle = Math.random() * 2.0 * Math.PI
+                                        d.endAngle = d.startAngle + Math.PI / 4.0
+                                        d.outerRadius = radius - 10 - Math.random() * 30
+                                        d.innerRadius = d.outerRadius - 60
 
-                        results.forEach (d) ->
-                                # We're still generating random values for angles and radius distances.
-                                # (But doing one per data query row.)
-                                d.startAngle = Math.random() * 2.0 * Math.PI
-                                d.endAngle = d.startAngle + Math.PI / 4.0
-                                d.outerRadius = radius - 10 - Math.random() * 30
-                                d.innerRadius = d.outerRadius - 60
-
-        results: results
+                                f results
