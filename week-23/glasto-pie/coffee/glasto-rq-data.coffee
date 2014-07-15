@@ -92,11 +92,19 @@ dayToDateMap =
 
 define () ->
         # This is a bit of design smell, uncovered by the Require restructuring: geometry
-        # declarations in the data generation!
-        width = 960
-        height = 500
-        radius = Math.min(width, height) / 2
+        # declarations in the data generation. So, no longer needed - we normalise the
+        # values instead.
 
+        #width = 960
+        #height = 500
+        #radius = Math.min(width, height) / 2
+
+        results = []
+
+        # This won't work: we're not in the callback (even if we call d3.csv right here):
+        results: results
+
+        # Thsi will work: return a function which calls a callback:
         withResults: (f) ->
                 d3.csv "data/Glastonbury 2014 - official timings - Line-up.csv"
                         .row (d) ->
@@ -108,8 +116,6 @@ define () ->
                                 endTimeStr: '2014-06-25 06:00:00'
 
                         .get (error, rows) ->
-                                results = []
-                
                                 populate db, rows
 
                                 stmt = db.prepare QUERY
@@ -119,9 +125,10 @@ define () ->
                                 results.forEach (d) ->
                                         # We're still generating random values for angles and radius distances.
                                         # (But doing one per data query row.)
-                                        d.startAngle = Math.random() * 2.0 * Math.PI
-                                        d.endAngle = d.startAngle + Math.PI / 4.0
-                                        d.outerRadius = radius - 10 - Math.random() * 30
-                                        d.innerRadius = d.outerRadius - 60
+                                        #
+                                        # Normalise these so that we don't tie ourselves to the geometry:
+                                        d.startPosition = Math.random()
+                                        d.endPosition = d.startPosition + 0.25
+                                        d.radius = Math.random()
 
                                 f results
