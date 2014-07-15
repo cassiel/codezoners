@@ -76,11 +76,13 @@ db.run """
 QUERY = """
         SELECT a.Name AS Name,
                s.Name AS Stage,
-               g.Name AS StageGroup
-          FROM Artist a, Stage s, StageGroup g, Appearance ast
+               g.Name AS StageGroup,
+               ap.StartTime,
+               ap.EndTime
+          FROM Artist a, Stage s, StageGroup g, Appearance ap
          WHERE g.Name LIKE '%CIRCUS%'
-           AND a.ID = ast.Artist_ID
-           AND s.ID = ast.Stage_ID
+           AND a.ID = ap.Artist_ID
+           AND s.ID = ap.Stage_ID
            AND s.StageGroup_ID = g.ID
 """
 dayToDateMap =
@@ -112,8 +114,9 @@ define () ->
                                 artist: d["Artist name"]
                                 group: d["Stage group"]
                                 stage: d["Stage"]
-                                startTimeStr: '2014-06-25 03:00:00'
-                                endTimeStr: '2014-06-25 06:00:00'
+                                # We need to make the times conform to what sqlite can turn into DateTimes.
+                                startTimeStr: '03:00:00'
+                                endTimeStr: '06:00:00'
 
                         .get (error, rows) ->
                                 populate db, rows
