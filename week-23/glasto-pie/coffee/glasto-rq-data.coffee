@@ -85,6 +85,7 @@ QUERY = """
            AND s.ID = ap.Stage_ID
            AND s.StageGroup_ID = g.ID
 """
+
 dayToDateMap =
         "WEDNESDAY" : "2014-06-25"
         "THURSDAY"  : "2014-06-26"
