@@ -33,27 +33,29 @@ render = (results) ->
                 .attr "d", arc
                 .style "fill", (d) -> color d.Name
 
-        g.append "text"
-                .attr "transform", (d) -> """
-                        translate(#{arc.centroid d})
-                        rotate(#{textRotate d.startAngle, d.endAngle})
-                """
-                .attr "dy", ".35em"
-                .style "text-anchor", "middle"
-                .text (d) -> d.Name
+        # For graphical debugging, turn the text off:
+        if true
+                g.append "text"
+                        .attr "transform", (d) -> """
+                                translate(#{arc.centroid d})
+                                rotate(#{textRotate d.startAngle, d.endAngle})
+                        """
+                        .attr "dy", ".35em"
+                        .style "text-anchor", "middle"
+                        .text (d) -> d.Name
 
 define ["glasto-rq-data"], (data) ->
         onload: ->
                 # We can't just render data.results: even if we were calling d3.csv, it wouldn't
                 # have executed yet. Hence this higher-order nonsense.
                 data.withResults (results) ->
+                        results.forEach (d) -> console.log d
+
                         results.forEach (d) ->
                                 # Calculate and add the fields actually required by D3:
                                 d.startAngle = d.startPosition * 2.0 * Math.PI
                                 d.endAngle = d.endPosition * 2.0 * Math.PI
-                                d.outerRadius = radius - 10 - d.radius * 30
-                                d.innerRadius = d.outerRadius - 60
-                        
-                        results.forEach (d) -> console.log d
+                                d.outerRadius = (radius - 10) * d.radius
+                                d.innerRadius = d.outerRadius - 10
 
                         render results

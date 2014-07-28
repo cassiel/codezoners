@@ -73,18 +73,30 @@ db.run """
                                 StartTime DateTime NOT NULL,
                                 EndTime DateTime NOT NULL)
 """
+# Expect the strftime() calculations here to fail in Winter! I expect
+# they're treating the strings from the CSV as the local time zone seen
+# by the database engine.
+
+# As will be clear from the visualisation, this query doesn't understand
+# shows will run over the midnight boundary (of which there are many). I
+# leave that as a exercise.
 QUERY = """
         SELECT a.Name AS Name,
                s.Name AS Stage,
+               s.ID AS StageID,
                g.Name AS StageGroup,
-               ap.StartTime,
-               ap.EndTime
+               (strftime('%s', ap.StartTime) % (60 * 60 * 24 * 1.0)) / (60 * 60 * 24) AS startTime,
+               (strftime('%s', ap.EndTime) % (60 * 60 * 24 * 1.0)) / (60 * 60 * 24) AS endTime
           FROM Artist a, Stage s, StageGroup g, Appearance ap
-         WHERE g.Name LIKE '%CIRCUS%'
-           AND a.ID = ap.Artist_ID
+         WHERE a.ID = ap.Artist_ID
            AND s.ID = ap.Stage_ID
            AND s.StageGroup_ID = g.ID
+           ORDER BY s.ID ASC
 """
+
+# These aren't used yet: we need to turn the day names and times in the
+# CSV file into date-time values so that we can query and filter the
+# output by date.
 
 dayToDateMap =
         "WEDNESDAY" : "2014-06-25"
@@ -115,9 +127,10 @@ define () ->
                                 artist: d["Artist name"]
                                 group: d["Stage group"]
                                 stage: d["Stage"]
-                                # We need to make the times conform to what sqlite can turn into DateTimes.
-                                startTimeStr: '03:00:00'
-                                endTimeStr: '06:00:00'
+                                # Many of the data rows contain incorrectly-formatted (or missing)
+                                # time fields. Exercise: determine what's happening to these.
+                                startTimeStr: d["Start time"]
+                                endTimeStr: d["End time"]
 
                         .get (error, rows) ->
                                 populate db, rows
@@ -127,12 +140,9 @@ define () ->
                                         results.push(stmt.getAsObject())
 
                                 results.forEach (d) ->
-                                        # We're still generating random values for angles and radius distances.
-                                        # (But doing one per data query row.)
-                                        #
                                         # Normalise these so that we don't tie ourselves to the geometry:
-                                        d.startPosition = Math.random()
-                                        d.endPosition = d.startPosition + 0.25
-                                        d.radius = Math.random()
+                                        d.startPosition = d.startTime
+                                        d.endPosition = d.endTime
+                                        d.radius = d.StageID / 100.0
 
                                 f results
