@@ -34,15 +34,15 @@ render = (results) ->
                 .style "fill", (d) -> color d.Name
 
         # For graphical debugging, turn the text off:
-        if true
-                g.append "text"
-                        .attr "transform", (d) -> """
-                                translate(#{arc.centroid d})
-                                rotate(#{textRotate d.startAngle, d.endAngle})
-                        """
-                        .attr "dy", ".35em"
-                        .style "text-anchor", "middle"
-                        .text (d) -> d.Name
+#        if false
+#                g.append "text"
+#                        .attr "transform", (d) -> """
+#                                translate(#{arc.centroid d})
+#                                rotate(#{textRotate d.startAngle, d.endAngle})
+#                        """
+#                        .attr "dy", ".35em"
+#                        .style "text-anchor", "middle"
+#                        .text (d) -> d.Name
 
 define ["glasto-rq-data"], (data) ->
         onload: ->

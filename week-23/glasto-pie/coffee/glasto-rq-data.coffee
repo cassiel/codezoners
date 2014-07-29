@@ -141,6 +141,8 @@ define () ->
 
                                 results.forEach (d) ->
                                         # Normalise these so that we don't tie ourselves to the geometry:
+
+                                        # EXERCISE: deal with events that run over midnight.
                                         d.startPosition = d.startTime
                                         d.endPosition = d.endTime
                                         d.radius = d.StageID / 100.0
