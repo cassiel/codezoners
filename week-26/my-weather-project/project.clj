@@ -6,4 +6,5 @@
   :dependencies [[org.clojure/clojure "1.6.0"]
                  [clj-http "0.9.2"]
                  [lein-light-nrepl "0.0.18"]]
-  :repl-options {:nrepl-middleware [lighttable.nrepl.handler/lighttable-ops]})
+  :repl-options {:nrepl-middleware [lighttable.nrepl.handler/lighttable-ops]
+                 :port 9876})
