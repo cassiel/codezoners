@@ -18,6 +18,9 @@
 (-> (client/get "http://google.com")
     (:body))
 
+;; The future: look at our Compojure headers:
+(client/get "http://localhost:3000")
+
 
 (get my-map :X 4 "A")
 
@@ -46,30 +49,38 @@
 
 
 (defn get-city [name]
-  (let [result (-> (client/get (str "http://api.openweathermap.org/data/2.5/weather?q=" name))
+  (try
+    (let [result (-> (client/get (str "http://api.openweathermap.org/data/2.5/weather?q=" name))
+                     (:body)
+                     (json/read-str :key-fn keyword))
+          code (str (:cod result))]
+    (if (= code "404")
+       {:error (:message result)}
+       result))
+
+    (catch Exception e {:error (.getMessage e)})))
+
+(-> (client/get (str "http://api.openweathermap.org/data/2.5/weather?q=" "12345678"))
                    (:body)
                    (json/read-str :key-fn keyword))
-        code (str (:cod result))]
-    (if (= code "404")
-       nil
-       result)
-      ))
 
 
 (get-city "London")
 
-(get-city "fejifewhfwiofhioweh")
+(get-city "123456789")
 
 (defn lat [city]
   (-> (get-city city)
       (get-in [:coord :lon])
     ))
 
+;; Alternate form using "let" rather than "->":
+
 (defn lat' [city]
   (let [c (get-city city)]
     (get-in c [:coord :lon])))
 
-(lat' "London")
+(lat "London")
 
 
 (defn info [city]
@@ -136,7 +147,13 @@
 ;; Wrap everything up into a function which takes city name as argument:
 
 (defn info [city]
-  ...
-) ;; => {:lat 51.51 :lon -0.13 :temp 18.0}
+  (let [info1 (get-city city)]
+    (if-let [error (:error info1)]
+      error
+      {:lat (get-in info1 [:coord :lat])
+       :lon (get-in info1 [:coord :lon])
+       :temp (- 273 (get-in info1 [:main :temp]))})))
 
 (info "London")
+
+(info "1234567890")
