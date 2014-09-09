@@ -1,10 +1,17 @@
 (ns my-site.handler
   (:require [compojure.core :refer :all]
             [compojure.handler :as handler]
-            [compojure.route :as route]))
+            [compojure.route :as route]
+            [hiccup.core :refer :all]))
 
 (defroutes app-routes
-  (GET "/" [] (str "<H1>" (java.util.Date.) "</H1>"))
+  (GET "/" [] (html [:html
+                     [:head [:title "Random Numbers"]]
+                     [:body
+                      [:h1 (java.util.Date.)]
+                      [:ul (for [x (range 1 21)] [:li x
+                                                  " -> "
+                                                  [:tt (rand)]])]]]))
   (GET "/test/" [] (str "<P>" (-> (slurp "/Users/nick/Desktop/foo.text")
                                   (clojure.string/replace "\n" "<BR/>"))
                         "</P>"))
