@@ -9,29 +9,45 @@
 (get-in (client/get "http://localhost:3000/test/") [:body])
 
 
+(ancestors (class {:A 2}))
 
 
 (slurp "/Users/nick/Desktop/foo.text")
 
+(ancestors (class {:A 1}))
 
+(ancestors (class :A))
 
+(class "Hello")
 
+(class :A)
 
+(ancestors (class [1 2 3 4 5]))
 
+(map ["A" "B" 24 5.6 []]
+     [0 2 1])
+
+({:A 1 :B 2} :A)
 
 (-> (slurp "/Users/nick/Desktop/foo.text")
     (clojure.string/replace "\n" "<BR/>"))
 
+(:A {:A 1 :B 2})
+({:A 1 :B 2} :A)
 
 
 
 
+(seq {:A 1 :B 3})
 
 
+( (fn [ [x y z] ] {:x x :y y :z z})
+
+  [12 "Hello" :A [1 2 3]]
+)
 
 
-
-
+(class {:A 1 :B 23})
 
 
 
@@ -75,3 +91,5 @@
 [:h1 (java.util.Date.)]
 
 (html [:h1 (java.util.Date.)])
+
+
