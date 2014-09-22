@@ -97,3 +97,92 @@ function testUndoEnterIntoDigitMode() {
 }
 
 testUndoEnterIntoDigitMode()
+
+function testAdd() {
+    var mockStack = [];
+    var c = Calculator({setValue: function (stack) { mockStack = stack; }});
+
+    c.digit("2");
+    c.enter();
+    c.digit("5");
+    c.op("+");
+
+    if (eqArray(mockStack, [0, 0, 0, 7])) {
+        return "testAdd OK";
+    } else {
+        return "testAdd FAIL: expecting [0, 0, 0, 7] encountered " + mockStack;
+    }
+}
+
+testAdd();
+
+function testMultiply() {
+    var mockStack = [];
+    var c = Calculator({setValue: function (stack) { mockStack = stack; }});
+
+    c.digit("2");
+    c.enter();
+    c.digit("5");
+    c.op("*");
+
+    if (eqArray(mockStack, [0, 0, 0, 10])) {
+        return "testMultiply OK";
+    } else {
+        return "testMultiply FAIL: expecting [0, 0, 0, 10] encountered " + mockStack;
+    }
+}
+
+testMultiply();
+
+function testClear() {
+    var mockStack = [];
+    var c = Calculator({setValue: function (stack) { mockStack = stack; }});
+
+    c.digit("3");
+    c.clear();
+
+    if (eqArray(mockStack, [0, 0, 0, 0])) {
+        return "testClear OK";
+    } else {
+        return "testClear FAIL: expecting [0, 0, 0, 0] encountered " + mockStack;
+    }
+}
+
+testClear()
+
+function testWeCanUndoClear() {
+    var mockStack = [];
+    var c = Calculator({setValue: function (stack) { mockStack = stack; }});
+
+    c.digit("3");
+    c.clear();
+    c.undo();
+
+    if (eqArray(mockStack, [0, 0, 0, 3])) {
+        return "testClear OK";
+    } else {
+        return "testClear FAIL: expecting [0, 0, 0, 3] encountered " + mockStack;
+    }
+}
+
+testWeCanUndoClear()
+
+function testWeCanUndoClearAndContinueInput() {
+    var mockStack = [];
+    var c = Calculator({setValue: function (stack) { mockStack = stack; }});
+
+    c.digit("3");
+    c.enter();
+    c.digit("4");
+    c.clear();
+    c.undo();
+    c.digit("5");
+
+    if (eqArray(mockStack, [0, 0, 3, 45])) {
+        return "testWeCanUndoClearAndContinueInput OK";
+    } else {
+        return "testWeCanUndoClearAndContinueInput FAIL: expecting [0, 0, 3, 45] encountered " + mockStack;
+    }
+}
+
+testWeCanUndoClearAndContinueInput()

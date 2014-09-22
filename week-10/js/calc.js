@@ -5,11 +5,14 @@ var StateEnum = {INPUTTING: 0,         // Entering the digits of a numerical val
                  ENTERED: 2            // We've just "entered" a value which we can calculate or overwrite
                 };
 
-var Ops = {
-    "+" : function (x, y) { return x + y; }
-};
-
 function Calculator(resultLine) {
+    var Ops = {
+      "+" : function (x, y) { return x + y; },
+      "-" : function (x, y) { return x - y; },
+      "*" : function (x, y) { return x * y; },
+      "/" : function (x, y) { return x / y; }
+    };
+
     // The stack is in this array as [T, Z, Y, X]: fixed-size.
     var stack = [0, 0, 0, 0];
     var state = StateEnum.INPUTTING;
@@ -67,6 +70,12 @@ function Calculator(resultLine) {
             this.refresh();
         },
 
+        clear: function () {
+            saveState();
+            stack = [0, 0, 0, 0];
+            this.refresh();
+        },
+
         undo: function () {
             if (history.length > 0) {
                 restoreState();
@@ -75,15 +84,16 @@ function Calculator(resultLine) {
         },
 
         op: function (sym) {
-            if (sym == "+") {
-                saveState();
-                var arg2 = stack.pop();
-                var arg1 = stack.pop();
-                stack.push(arg1 + arg2);
-                adjust();
-                state = StateEnum.RESULT;
-                this.refresh();
-            }
+            saveState();
+            var arg2 = stack.pop();
+            var arg1 = stack.pop();
+
+            stack.push(Ops[sym](arg1, arg2));
+
+            adjust();
+            state = StateEnum.RESULT;
+            this.refresh();
         }
     };
 }
+

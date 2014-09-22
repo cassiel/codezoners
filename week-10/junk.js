@@ -80,10 +80,18 @@ x3
 
 x2.myXFn();
 
+
 var x2 = new Goo([1, 2, 3, 4]);
 
 x2.myXFn();
 
+
+
 x2.myXFn()[2] = 99;
 
 x2.myXFn();
+
+
+Ops
+
+Ops["+"](4, 5)
