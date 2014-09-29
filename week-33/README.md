@@ -22,7 +22,7 @@ Go to
 
         http://localhost:3000
         
-You'll see three links to example pages. [EX: add fourth] All of these use D3 for graphics; they vary in terms of how they determine where to draw the circles.
+You'll see three links to example pages. All of these use D3 for graphics; they vary in terms of how they determine where to draw the circles.
 
 - Circles 1: uses a hard-wired array of values in the script, draw circles with varying X position and radius based on these values. (The buttons on the page are not used.)
 
