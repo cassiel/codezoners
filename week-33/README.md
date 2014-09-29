@@ -52,7 +52,7 @@ Look at `handler.clj`. It supports three routes (URLs):
 
 - [slightly harder] Can you get Circles 4 working just as a copy of one of the other pages (Circles 1 to 3)?
 
-- [easy] In Circles 3, can you increase the horizontal spacing between the circles? (It's easy to do in the CoffeeScript once the data has arrived; for more credit, do it in Clojure, and don't alter the ClojureScript at all.)
+- [easy] In Circles 3, can you increase the horizontal spacing between the circles? (It's easy to do in the CoffeeScript once the data has arrived; for more credit, do it in Clojure, and don't alter the CoffeeScript at all.)
 
 - [easy] I don't like the circle colours in Circles 1. Can you add some new colours to the CSV file, and make the CoffeeScript pick up and display the colours? (This doesn't require any modifications to the Clojure/Compojure code at all.)
 
