@@ -54,7 +54,7 @@ Look at `handler.clj`. It supports three routes (URLs):
 
 - [easy] In Circles 3, can you increase the horizontal spacing between the circles? (It's easy to do in the CoffeeScript once the data has arrived; for more credit, do it in Clojure, and don't alter the CoffeeScript at all.)
 
-- [easy] I don't like the circle colours in Circles 1. Can you add some new colours to the CSV file, and make the CoffeeScript pick up and display the colours? (This doesn't require any modifications to the Clojure/Compojure code at all.)
+- [easy] I don't like the circle colours in Circles 2. Can you add some new colours to the CSV file, and make the CoffeeScript pick up and display the colours? (This doesn't require any modifications to the Clojure/Compojure code at all.)
 
 - [moderate] Sticking with the colours example: can you make Circles 3 draw in random colours? This is pretty easy to do in CoffeeScript - can you do it on the server (returning the colours via CSV)?
 
